@@ -1,7 +1,7 @@
-import { protectedProcedure } from '@/server/trpc'
+import { publicProcedure } from '@/server/trpc'
 
-export const logoutProcedure = protectedProcedure.mutation(async ({ ctx }) => {
-	ctx.resHeaders.set(
+export const logoutProcedure = publicProcedure.mutation(async ({ ctx }) => {
+	ctx.resHeaders.append(
 		'Set-Cookie',
 		'refreshToken=; HttpOnly; Secure; SameSite=Strict; Max-Age=0; Path=/'
 	)

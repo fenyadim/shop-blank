@@ -31,11 +31,12 @@ export const registerProcedure = publicProcedure
 		const accessToken = await signAccessToken({ sub: user.id })
 		const refreshToken = await signRefreshToken({ sub: user.id })
 
-		ctx.resHeaders.set(
+		const expiresTime =
+			Number(process.env.JWT_REFRESH_EXPIRES) ?? 7 * 24 * 60 * 60
+
+		ctx.resHeaders.append(
 			'Set-Cookie',
-			`refreshToken=${refreshToken}; HttpOnly; Secure; SameSite=Strict; Max-Age=${
-				7 * 24 * 60 * 60
-			}; Path=/`
+			`refreshToken=${refreshToken}; HttpOnly; Secure; SameSite=Strict; Max-Age=${expiresTime}; Path=/`
 		)
 
 		return {

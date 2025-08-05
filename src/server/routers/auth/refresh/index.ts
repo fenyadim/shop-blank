@@ -1,13 +1,9 @@
 import { publicProcedure } from '@/server/trpc'
-import {
-	signAccessToken,
-	signRefreshToken,
-	verifyJwt,
-} from '@/server/utils/jwt'
+import { signAccessToken, verifyJwt } from '@/server/utils/jwt'
 import { TRPCError } from '@trpc/server'
 import { parse } from 'cookie'
 
-export const refreshProcedure = publicProcedure.mutation(async ({ ctx }) => {
+export const refreshProcedure = publicProcedure.query(async ({ ctx }) => {
 	const cookieHeader = ctx.req.headers.get('cookie')
 
 	if (!cookieHeader)
@@ -40,14 +36,6 @@ export const refreshProcedure = publicProcedure.mutation(async ({ ctx }) => {
 		})
 
 		const newAccessToken = await signAccessToken({ sub: user.id })
-		const newRefreshToken = await signRefreshToken({ sub: user.id })
-
-		ctx.resHeaders.set(
-			'Set-Cookie',
-			`refreshToken=${newRefreshToken}; HttpOnly; Secure; SameSite=Strict; Max-Age=${
-				7 * 24 * 60 * 60
-			}; Path=/`
-		)
 
 		return {
 			token: newAccessToken,

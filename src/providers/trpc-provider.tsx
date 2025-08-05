@@ -24,39 +24,58 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
 							}
 						}
 
-						const response = await fetch(url, options)
+						try {
+							const response = await fetch(url, options)
 
-						// Если получили 401, пытаемся обновить токен
-						if (response.status === 401) {
-							try {
-								const refreshResponse = await fetch('/api/trpc/auth.refresh', {
-									method: 'POST',
-									credentials: 'include',
-								})
-
-								if (refreshResponse.ok) {
-									const data = await refreshResponse.json()
-									localStorage.setItem(
-										'accessToken',
-										data.result.data.accessToken
-									)
-
-									// Повторяем оригинальный запрос
-									if (accessToken && options) {
-										options.headers = {
-											...options.headers,
-											Authorization: `Bearer ${data.result.data.accessToken}`,
-										}
-									}
-									return fetch(url, options)
-								}
-							} catch (error) {
-								console.error('Failed to refresh token:', error)
-							}
+							return response
+						} catch (e) {
+							console.log('Error', e)
+							return Promise.reject('TEST')
 						}
 
-						return response
+						// try {
+						// 	const response = await fetch(url, options)
+						// 	if (!response.ok) {
+						// 		try {
+						// 			const refreshResponse = await fetch(
+						// 				'/api/trpc/auth.refresh',
+						// 				{
+						// 					credentials: 'include',
+						// 				}
+						// 			)
+
+						// 			if (refreshResponse.ok) {
+						// 				const data = await refreshResponse.json()
+
+						// 				const accessToken = data.result.data.token
+
+						// 				localStorage.setItem('accessToken', accessToken)
+
+						// 				if (options) {
+						// 					options.headers = {
+						// 						...options.headers,
+						// 						Authorization: `Bearer ${accessToken}`,
+						// 					}
+						// 				}
+						// 			}
+						// 		} catch (error) {
+						// 			console.error('Failed to refresh token:', error)
+
+						// 			throw new TRPCError({
+						// 				code: 'UNAUTHORIZED',
+						// 				message: 'Unauthorized',
+						// 			})
+						// 		}
+						// 	}
+						// } catch (error) {
+						// 	throw new TRPCError({
+						// 		code: 'BAD_GATEWAY',
+						// 		message: 'Что-то пошло не так',
+						// 	})
+						// }
+						// return await fetch(url, options)
 					},
+					
 				}),
 			],
 		})

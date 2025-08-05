@@ -2,10 +2,16 @@
 
 import { useLocalStorage } from '@/shared/hooks'
 import { trpc } from '@/utils/trpcClient'
+import { useRouter } from 'next/navigation'
 import { FormEvent, useState } from 'react'
 
-export const LoginPage = () => {
+interface LoginPageProps {
+	redirectTo: string
+}
+
+export const LoginPage = ({ redirectTo }: LoginPageProps) => {
 	const { set: setAccessToken } = useLocalStorage('accessToken', '')
+	const router = useRouter()
 
 	const utils = trpc.useUtils()
 
@@ -13,6 +19,7 @@ export const LoginPage = () => {
 		onSuccess: data => {
 			setAccessToken(data.token)
 			utils.users.invalidate()
+			router.replace(redirectTo)
 		},
 		onError: err => {
 			console.log(err)
@@ -22,17 +29,16 @@ export const LoginPage = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const handleSubmit = (e: FormEvent) => {
+	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault()
-
-		loginMutation.mutate({ email, password })
+		await loginMutation.mutateAsync({ email, password })
 	}
 
 	return (
 		<div>
 			<form
 				onSubmit={handleSubmit}
-				className='flex flex-col gap-5 w-80 bg-gray-700 p-5'
+				className='flex flex-col gap-5 w-80 bg-gray-600 p-5'
 			>
 				<input
 					type='text'
@@ -46,7 +52,13 @@ export const LoginPage = () => {
 					value={password}
 					onChange={e => setPassword(e.target.value)}
 				/>
-				<button className='bg-gray-800'>Login</button>
+				<button
+					className='bg-gray-700 cursor-pointer disabled:bg-gray-950 disabled:cursor-not-allowed'
+					disabled={loginMutation.isPending}
+				>
+					Login
+				</button>
+				<p className='text-red-800'>{loginMutation.error?.message}</p>
 			</form>
 		</div>
 	)
