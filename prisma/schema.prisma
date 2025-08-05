@@ -19,6 +19,7 @@ model User {
   email     String   @unique
   password  String
   orders    Order[]
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
 }
@@ -72,4 +73,10 @@ enum OrderStatus {
   CREATED
   DELIVERED
   COMPLETED
+}
+
+enum Role {
+  ADMIN
+  MODERATOR
+  USER
 }

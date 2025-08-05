@@ -2,7 +2,7 @@ import 'server-only'
 
 import { jwtVerify } from 'jose'
 
-const secretKey = process.env.JWT_SECRET
+const secretKey = .JWT_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
 
 export async function decrypt(session: string | undefined = '') {
