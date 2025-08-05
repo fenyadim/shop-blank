@@ -1,9 +1,9 @@
 'use client'
 
 import { User } from '@/types/user'
-import { trpc } from '@/utils/trpcClient'
 import { usePathname, useRouter } from 'next/navigation'
 import { createContext, PropsWithChildren, useEffect } from 'react'
+import { trpc } from './trpc-provider'
 
 interface AuthProviderProps extends PropsWithChildren {
 	roles?: []
@@ -27,8 +27,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
 	useEffect(() => {
 		if (!isLoading && error) {
-			console.log(pathname)
-			router.replace(`/login?redirect=/dashboard`)
+			router.replace(`/login?redirect=${pathname}`)
 		}
 	}, [error, isLoading, router, pathname])
 

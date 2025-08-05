@@ -1,7 +1,7 @@
 'use client'
 
+import { trpc } from '@/providers/trpc-provider'
 import { useLocalStorage, useUser } from '@/shared/hooks'
-import { trpc } from '@/utils/trpcClient'
 
 export const DashboardPage = () => {
 	const utils = trpc.useUtils()

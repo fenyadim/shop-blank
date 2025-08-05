@@ -1,7 +1,7 @@
 'use client'
 
+import { trpc } from '@/providers/trpc-provider'
 import { useLocalStorage } from '@/shared/hooks'
-import { trpc } from '@/utils/trpcClient'
 import { useRouter } from 'next/navigation'
 import { FormEvent, useState } from 'react'
 
