@@ -1,23 +1,36 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import { trpc } from '@/providers/trpc-provider'
-import { useLocalStorage } from '@/shared/hooks'
+import { loginSchema } from '@/server/routers/auth/login/input'
+import { LoginInput } from '@/types/auth'
+import { tokenManager } from '@/utils/tokenManager'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { FormEvent, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 interface LoginPageProps {
 	redirectTo: string
 }
 
 export const LoginPage = ({ redirectTo }: LoginPageProps) => {
-	const { set: setAccessToken } = useLocalStorage('accessToken', '')
 	const router = useRouter()
 
 	const utils = trpc.useUtils()
 
 	const loginMutation = trpc.auth.login.useMutation({
 		onSuccess: data => {
-			setAccessToken(data.token)
+			tokenManager.setAccessToken(data.token)
 			utils.users.invalidate()
 			router.replace(redirectTo)
 		},
@@ -26,40 +39,72 @@ export const LoginPage = ({ redirectTo }: LoginPageProps) => {
 		},
 	})
 
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
+	const form = useForm({
+		resolver: zodResolver(loginSchema),
+		defaultValues: {
+			email: '',
+			password: '',
+		},
+	})
 
-	const handleSubmit = async (e: FormEvent) => {
-		e.preventDefault()
-		await loginMutation.mutateAsync({ email, password })
+	const handleSubmit = async (values: LoginInput) => {
+		await loginMutation.mutateAsync(values)
 	}
 
+	console.log(form.formState.errors)
+
 	return (
-		<div>
-			<form
-				onSubmit={handleSubmit}
-				className='flex flex-col gap-5 w-80 bg-gray-600 p-5'
-			>
-				<input
-					type='text'
-					placeholder='Email'
-					value={email}
-					onChange={e => setEmail(e.target.value)}
-				/>
-				<input
-					type='password'
-					placeholder='Password'
-					value={password}
-					onChange={e => setPassword(e.target.value)}
-				/>
-				<button
-					className='bg-gray-700 cursor-pointer disabled:bg-gray-950 disabled:cursor-not-allowed'
-					disabled={loginMutation.isPending}
-				>
-					Login
-				</button>
-				<p className='text-red-800'>{loginMutation.error?.message}</p>
-			</form>
+		<div className='h-full flex justify-center items-center'>
+			<Card className='w-80'>
+				<CardHeader>
+					<CardTitle>Login</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<Form {...form}>
+						<form
+							onSubmit={form.handleSubmit(handleSubmit)}
+							className='flex flex-col gap-3'
+						>
+							<FormField
+								control={form.control}
+								name='email'
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Username</FormLabel>
+										<FormControl>
+											<Input
+												placeholder='johndoe@example.com'
+												type='email'
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name='password'
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Password</FormLabel>
+										<FormControl>
+											<Input
+												placeholder='**********'
+												type='password'
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<Button disabled={loginMutation.isPending}>Login</Button>
+						</form>
+					</Form>
+				</CardContent>
+			</Card>
 		</div>
 	)
 }

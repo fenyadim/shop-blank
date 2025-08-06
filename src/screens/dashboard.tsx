@@ -1,7 +1,8 @@
 'use client'
 
+import { useUser } from '@/providers/auth-provider'
 import { trpc } from '@/providers/trpc-provider'
-import { useLocalStorage, useUser } from '@/shared/hooks'
+import { tokenManager } from '@/utils/tokenManager'
 
 export const DashboardPage = () => {
 	const utils = trpc.useUtils()
@@ -9,13 +10,11 @@ export const DashboardPage = () => {
 
 	const logoutMutation = trpc.auth.logout.useMutation()
 
-	const { remove: removeAccessToken } = useLocalStorage('accessToken', '')
-
 	if (isLoading) return <p>Loading...</p>
 
 	const handleLogout = async () => {
 		await logoutMutation.mutateAsync()
-		removeAccessToken()
+		tokenManager.clearToken()
 		utils.users.invalidate()
 	}
 

@@ -2,7 +2,7 @@
 
 import { User } from '@/types/user'
 import { usePathname, useRouter } from 'next/navigation'
-import { createContext, PropsWithChildren, useEffect } from 'react'
+import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
 import { trpc } from './trpc-provider'
 
 interface AuthProviderProps extends PropsWithChildren {
@@ -38,4 +38,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 			{children}
 		</UserContext.Provider>
 	)
+}
+
+export const useUser = () => {
+	const context = useContext(UserContext)
+
+	return context
 }
