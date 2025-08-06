@@ -27,63 +27,13 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
 			links: [
 				httpBatchLink({
 					url: '/api/trpc',
-					headers: async ({ opList }) => {
+					headers: async () => {
 						const accessToken = tokenManager.getAccessToken()
-
-						console.log(opList)
 
 						return {
 							authorization: accessToken ? `Bearer ${accessToken}` : '',
 						}
 					},
-					// fetch: async (url, options) => {
-					// 	try {
-					// 		const accessToken = tokenManager.getAccessToken()
-
-					// 		const fetchOptions: RequestInit = {
-					// 			method: options?.method,
-					// 			body: options?.body as BodyInit | null | undefined,
-					// 			headers: {
-					// 				...options?.headers,
-					// 			},
-					// 		}
-
-					// 		if (accessToken) {
-					// 			fetchOptions.headers = {
-					// 				...fetchOptions.headers,
-					// 				Authorization: `Bearer ${accessToken}`,
-					// 			}
-					// 		}
-
-					// 		const response = await fetch(url, fetchOptions)
-
-					// 		if (response.status === 401) {
-					// 			const newTokens = await tokenManager.forceRefresh()
-
-					// 			if (!newTokens) {
-					// 				return Promise.reject()
-					// 			}
-
-					// 			const retryOptions: RequestInit = {
-					// 				...fetchOptions,
-					// 				headers: {
-					// 					...fetchOptions.headers,
-					// 					Authorization: `Bearer ${newTokens.accessToken}`,
-					// 				},
-					// 			}
-					// 			return await fetch(url, retryOptions)
-					// 		}
-
-					// 		return response
-					// 	} catch (error) {
-					// 		console.error('TRPC_PROVIDER', error)
-
-					// 		if (error instanceof TRPCError && error.code === 'UNAUTHORIZED') {
-					// 		}
-
-					// 		return Promise.reject(error)
-					// 	}
-					// },
 				}),
 			],
 		})
