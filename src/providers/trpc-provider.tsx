@@ -15,6 +15,7 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
 				defaultOptions: {
 					queries: {
 						retry: false,
+						refetchOnWindowFocus: false,
 					},
 					mutations: {
 						retry: false,
@@ -27,11 +28,36 @@ export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
 			links: [
 				httpBatchLink({
 					url: '/api/trpc',
-					headers: async () => {
-						const accessToken = tokenManager.getAccessToken()
 
-						return {
-							authorization: accessToken ? `Bearer ${accessToken}` : '',
+					fetch: async (url, options) => {
+						try {
+							const accessToken = tokenManager.getAccessToken()
+							const fetchOptions: RequestInit = {
+								method: options?.method,
+								body: options?.body as BodyInit,
+								headers: {
+									...options?.headers,
+									...(accessToken
+										? { Authorization: `Bearer ${accessToken}` }
+										: {}),
+								},
+							}
+							const res = await fetch(url, fetchOptions)
+
+							if (res.status === 401) {
+								const newToken = await tokenManager.forceRefresh()
+								if (newToken) {
+									fetchOptions.headers = {
+										...fetchOptions.headers,
+										Authorization: `Bearer ${newToken}`,
+									}
+								}
+								return await fetch(url, fetchOptions)
+							}
+
+							return res
+						} catch (e) {
+							return Promise.reject(e)
 						}
 					},
 				}),

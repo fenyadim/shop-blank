@@ -15,7 +15,7 @@ export const DashboardPage = () => {
 	const handleLogout = async () => {
 		await logoutMutation.mutateAsync()
 		tokenManager.clearToken()
-		utils.users.invalidate()
+		utils.users.getMe.setData(undefined, null)
 	}
 
 	return (

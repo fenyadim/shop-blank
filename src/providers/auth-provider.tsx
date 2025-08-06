@@ -28,10 +28,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 	useEffect(() => {
 		if (!isLoading && error) {
 			router.replace(`/login?redirect=${pathname}`)
+			return
 		}
 	}, [error, isLoading, router, pathname])
 
 	if (isLoading || !user) return <p>Loading...</p>
+
+	console.log(user)
 
 	return (
 		<UserContext.Provider value={{ user, isLoading }}>

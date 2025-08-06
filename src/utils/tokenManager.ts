@@ -51,13 +51,13 @@ class TokenManager {
 			)
 			await jwtVerify(accessToken, secret)
 			return false
-		} catch (error) {
+		} catch {
 			return true
 		}
 	}
 
 	// Обновить токены через API (refreshToken берется из cookies)
-	private async refreshTokens(): Promise<TokenData> {
+	private async refreshToken(): Promise<string> {
 		try {
 			const response = await fetch('/api/trpc/auth.refresh', {
 				credentials: 'include', // Важно для отправки cookies с refresh token
@@ -70,9 +70,7 @@ class TokenManager {
 			const data = await response.json()
 			const refreshData: RefreshResponse = data.result.data
 
-			return {
-				accessToken: refreshData.token,
-			}
+			return refreshData.token
 		} catch (error) {
 			console.error('Error refreshing tokens:', error)
 			this.clearToken()
@@ -81,12 +79,12 @@ class TokenManager {
 	}
 
 	// Принудительно обновить токены
-	async forceRefresh(): Promise<TokenData | null> {
+	async forceRefresh(): Promise<string | null> {
 		try {
-			const newTokens = await this.refreshTokens()
-			this.setAccessToken(newTokens.accessToken)
-			return newTokens
-		} catch (error) {
+			const newToken = await this.refreshToken()
+			this.setAccessToken(newToken)
+			return newToken
+		} catch {
 			return null
 		}
 	}
