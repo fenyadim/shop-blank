@@ -1,4 +1,5 @@
 import { Header } from '@/components/header'
+import { ToggleTheme } from '@/components/toggle-theme'
 import { RootProvider } from '@/providers/root-provider'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -25,13 +26,14 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<RootProvider>
 					<Header />
 					<main>{children}</main>
+					
 				</RootProvider>
 			</body>
 		</html>

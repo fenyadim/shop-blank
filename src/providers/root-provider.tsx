@@ -1,6 +1,19 @@
+'use client'
+
+import { ToggleTheme } from '@/components/toggle-theme'
 import { PropsWithChildren } from 'react'
+import { ThemeProvider } from './theme-provider'
 import { TrpcProvider } from './trpc-provider'
 
 export const RootProvider = ({ children }: PropsWithChildren) => {
-	return <TrpcProvider>{children}</TrpcProvider>
+	return (
+		<ThemeProvider
+			attribute='class'
+			defaultTheme='system'
+			enableSystem
+			disableTransitionOnChange
+		>
+			<TrpcProvider>{children}</TrpcProvider>
+		</ThemeProvider>
+	)
 }

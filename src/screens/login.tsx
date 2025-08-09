@@ -1,5 +1,6 @@
 'use client'
 
+import { loginSchema } from '@/components/auth/schema'
 import { Alert, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -13,7 +14,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { trpc } from '@/providers/trpc-provider'
-import { loginSchema } from '@/server/routers/auth/login/input'
 import { LoginInput } from '@/types/auth'
 import { tokenManager } from '@/utils/tokenManager'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -102,6 +102,14 @@ export const LoginPage = ({ redirectTo }: LoginPageProps) => {
 									</FormItem>
 								)}
 							/>
+
+							{form.formState.errors.root && (
+								<Alert variant='destructive'>
+									<AlertCircleIcon />
+									<AlertTitle>{form.formState.errors.root.message}.</AlertTitle>
+								</Alert>
+							)}
+
 							<Button disabled={loginMutation.isPending}>
 								{!loginMutation.isPending ? (
 									'Войти'
@@ -109,12 +117,6 @@ export const LoginPage = ({ redirectTo }: LoginPageProps) => {
 									<Loader2Icon className='animate-spin' />
 								)}
 							</Button>
-							{form.formState.errors.root && (
-								<Alert variant='destructive'>
-									<AlertCircleIcon />
-									<AlertTitle>{form.formState.errors.root.message}.</AlertTitle>
-								</Alert>
-							)}
 						</form>
 					</Form>
 				</CardContent>

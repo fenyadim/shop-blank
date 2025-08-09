@@ -9,9 +9,16 @@ export const loginProcedure = publicProcedure
 	.mutation(async ({ input, ctx }) => {
 		const { email, password } = input
 
-		const user = await ctx.prisma.user.findUniqueOrThrow({
+		const user = await ctx.prisma.user.findUnique({
 			where: { email },
 		})
+
+		if (!user) {
+			throw new TRPCError({
+				code: 'BAD_REQUEST',
+				message: 'Неверный email или пароль',
+			})
+		}
 
 		const isValidPassword = await bcrypt.compare(password, user.password)
 
