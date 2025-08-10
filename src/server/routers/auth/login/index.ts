@@ -5,46 +5,46 @@ import { publicProcedure } from '../../../trpc'
 import { loginSchema } from './input'
 
 export const loginProcedure = publicProcedure
-	.input(loginSchema)
-	.mutation(async ({ input, ctx }) => {
-		const { email, password } = input
+  .input(loginSchema)
+  .mutation(async ({ input, ctx }) => {
+    const { email, password } = input
 
-		const user = await ctx.prisma.user.findUnique({
-			where: { email },
-		})
+    const user = await ctx.prisma.user.findUnique({
+      where: { email },
+    })
 
-		if (!user) {
-			throw new TRPCError({
-				code: 'BAD_REQUEST',
-				message: 'Неверный email или пароль',
-			})
-		}
+    if (!user) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'Неверный email или пароль',
+      })
+    }
 
-		const isValidPassword = await bcrypt.compare(password, user.password)
+    const isValidPassword = await bcrypt.compare(password, user.password)
 
-		if (!isValidPassword) {
-			throw new TRPCError({
-				code: 'UNAUTHORIZED',
-				message: 'Неверный email или пароль',
-			})
-		}
+    if (!isValidPassword) {
+      throw new TRPCError({
+        code: 'UNAUTHORIZED',
+        message: 'Неверный email или пароль',
+      })
+    }
 
-		const accessToken = await signAccessToken({ sub: user.id })
-		const refreshToken = await signRefreshToken({ sub: user.id })
+    const accessToken = await signAccessToken({ sub: user.id })
+    const refreshToken = await signRefreshToken({ sub: user.id })
 
-		const expiresTime =
-			Number(process.env.JWT_REFRESH_EXPIRES) ?? 7 * 24 * 60 * 60
+    const expiresTime =
+      Number(process.env.JWT_REFRESH_EXPIRES) ?? 7 * 24 * 60 * 60
 
-		ctx.resHeaders.append(
-			'Set-Cookie',
-			`refreshToken=${refreshToken}; HttpOnly; Secure; SameSite=Strict; Max-Age=${expiresTime}; Path=/`
-		)
+    ctx.resHeaders.append(
+      'Set-Cookie',
+      `refreshToken=${refreshToken}; HttpOnly; Secure; SameSite=Strict; Max-Age=${expiresTime}; Path=/`,
+    )
 
-		return {
-			user: {
-				id: user.id,
-				email: user.email,
-			},
-			token: accessToken,
-		}
-	})
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+      },
+      token: accessToken,
+    }
+  })

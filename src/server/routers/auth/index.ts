@@ -5,8 +5,8 @@ import { refreshProcedure } from './refresh'
 import { registerProcedure } from './register'
 
 export const authRouter = router({
-	register: registerProcedure,
-	login: loginProcedure,
-	logout: logoutProcedure,
-	refresh: refreshProcedure,
+  register: registerProcedure,
+  login: loginProcedure,
+  logout: logoutProcedure,
+  refresh: refreshProcedure,
 })
