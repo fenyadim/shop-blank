@@ -1,5 +1,11 @@
 const PUBLIC_ROUTES = ['home'] as const
-const ADMIN_ROUTES = ['dashboard', 'products', 'settings', 'profile'] as const
+const ADMIN_ROUTES = [
+  'dashboard',
+  'products',
+  'settings',
+  'profile',
+  'users',
+] as const
 const AUTH_ROUTES = ['login', 'register'] as const
 
 const ALL_ROUTES = [...PUBLIC_ROUTES, ...ADMIN_ROUTES, ...AUTH_ROUTES] as const
@@ -17,6 +23,7 @@ export const routeConfig = {
   products: () => '/dashboard/products',
   settings: () => '/dashboard/settings',
   profile: () => '/dashboard/profile',
+  users: () => '/dashboard/users',
   login: (redirectTo?: string) =>
     redirectTo ? `/login?redirect=${redirectTo}` : '/login',
   register: (redirectTo?: string) =>
