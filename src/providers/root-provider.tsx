@@ -1,6 +1,5 @@
 'use client'
 
-import { ToggleTheme } from '@/components/toggle-theme'
 import { PropsWithChildren } from 'react'
 import { ThemeProvider } from './theme-provider'
 import { TrpcProvider } from './trpc-provider'

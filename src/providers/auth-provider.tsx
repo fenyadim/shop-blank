@@ -1,5 +1,6 @@
 'use client'
 
+import { routeConfig } from '@/config/route'
 import { User } from '@/types/user'
 import { usePathname, useRouter } from 'next/navigation'
 import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     if (!isLoading && error) {
-      router.replace(`/login?redirect=${pathname}`)
+      router.replace(routeConfig.login(pathname))
       return
     }
   }, [error, isLoading, router, pathname])

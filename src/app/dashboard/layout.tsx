@@ -1,6 +1,16 @@
+import { DashboardSidebar } from '@/components/dashboard'
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { AuthProvider } from '@/providers/auth-provider'
 import { PropsWithChildren } from 'react'
 
 export default function DashboardLayout({ children }: PropsWithChildren) {
-  return <AuthProvider>{children}</AuthProvider>
+  return (
+    <AuthProvider>
+      <SidebarProvider>
+        <DashboardSidebar />
+        <SidebarTrigger />
+        {children}
+      </SidebarProvider>
+    </AuthProvider>
+  )
 }

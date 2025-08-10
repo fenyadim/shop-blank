@@ -10,7 +10,7 @@ export const authMiddleware = t.middleware(async ({ ctx, next }) => {
       const payload = await verifyJwt(ctx.accessToken)
       user = await ctx.prisma.user.findUnique({
         where: { id: payload.sub },
-        select: { id: true, email: true, role: true },
+        select: { id: true, email: true, role: true, avatar: true },
       })
     } catch {}
   }
