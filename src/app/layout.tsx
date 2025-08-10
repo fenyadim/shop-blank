@@ -1,5 +1,4 @@
 import { Header } from '@/components/header'
-import { ToggleTheme } from '@/components/toggle-theme'
 import { RootProvider } from '@/providers/root-provider'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -32,7 +31,7 @@ export default function RootLayout({
       >
         <RootProvider>
           <Header />
-          <main>{children}</main>
+          <main className="h-full pt-18">{children}</main>
         </RootProvider>
       </body>
     </html>
