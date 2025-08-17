@@ -1,5 +1,5 @@
 import { routeConfig } from '@/config/route'
-import { Home } from 'lucide-react'
+import { Home, LayoutDashboard, LogIn, User } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
@@ -16,13 +16,19 @@ export const Header = () => {
               </Link>
             </Button>
             <Button asChild>
-              <Link href={routeConfig.login()}>Login</Link>
+              <Link href={routeConfig.login()}>
+                <LogIn /> Login
+              </Link>
             </Button>
             <Button asChild>
-              <Link href={routeConfig.dashboard()}>Dashboard</Link>
+              <Link href={routeConfig.dashboard()}>
+                <LayoutDashboard /> Dashboard
+              </Link>
             </Button>
             <Button asChild>
-              <Link href={routeConfig.profile()}>Profile</Link>
+              <Link href={routeConfig.profile()}>
+                <User /> Profile
+              </Link>
             </Button>
           </nav>
         </CardContent>

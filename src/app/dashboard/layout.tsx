@@ -8,8 +8,10 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
     <AuthProvider>
       <SidebarProvider>
         <DashboardSidebar />
-        <SidebarTrigger />
-        {children}
+        <main className="p-2 flex-1">
+          <SidebarTrigger />
+          {children}
+        </main>
       </SidebarProvider>
     </AuthProvider>
   )
