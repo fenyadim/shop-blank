@@ -1,10 +1,11 @@
 'use client'
 
-import { AppRouter } from '@/server'
-import { tokenManager } from '@/utils/tokenManager'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createTRPCReact, httpBatchLink } from '@trpc/react-query'
 import { useState } from 'react'
+
+import { AppRouter } from '@/server'
+import { tokenManager } from '@/utils/tokenManager'
 
 export const trpc = createTRPCReact<AppRouter>()
 

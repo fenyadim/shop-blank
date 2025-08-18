@@ -1,8 +1,9 @@
 'use client'
 
-import { ToggleTheme } from '@/components/toggle-theme'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import * as React from 'react'
+
+import { ToggleTheme } from '@/components/toggle-theme'
 
 export function ThemeProvider({
   children,

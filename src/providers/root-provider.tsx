@@ -1,6 +1,7 @@
 'use client'
 
 import { PropsWithChildren } from 'react'
+
 import { ThemeProvider } from './theme-provider'
 import { TrpcProvider } from './trpc-provider'
 

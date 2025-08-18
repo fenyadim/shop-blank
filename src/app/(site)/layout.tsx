@@ -1,5 +1,6 @@
-import { Header } from '@/components/header'
 import { PropsWithChildren } from 'react'
+
+import { Header } from '@/components/header'
 
 export default function SiteLayout({ children }: PropsWithChildren) {
   return (

@@ -1,9 +1,11 @@
 'use client'
 
+import { usePathname, useRouter } from 'next/navigation'
+import { PropsWithChildren, createContext, useContext, useEffect } from 'react'
+
 import { routeConfig } from '@/config/route'
 import { User } from '@/types/user'
-import { usePathname, useRouter } from 'next/navigation'
-import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
+
 import { trpc } from './trpc-provider'
 
 interface AuthProviderProps extends PropsWithChildren {

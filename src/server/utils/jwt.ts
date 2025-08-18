@@ -1,6 +1,5 @@
+import { SignJWT, jwtVerify } from 'jose'
 import 'server-only'
-
-import { jwtVerify, SignJWT } from 'jose'
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET!)
 

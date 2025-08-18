@@ -1,6 +1,8 @@
-import { signAccessToken, signRefreshToken } from '@/server/utils/jwt'
 import { TRPCError } from '@trpc/server'
 import bcrypt from 'bcryptjs'
+
+import { signAccessToken, signRefreshToken } from '@/server/utils/jwt'
+
 import { publicProcedure } from '../../../trpc'
 import { registerSchema } from './input'
 

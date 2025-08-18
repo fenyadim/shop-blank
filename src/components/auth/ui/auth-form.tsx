@@ -1,5 +1,11 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { AlertCircleIcon, Loader2Icon } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+
 import { loginSchema, registerSchema } from '@/components/auth/schema'
 import { Alert, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
@@ -16,11 +22,6 @@ import { Input } from '@/components/ui/input'
 import { trpc } from '@/providers/trpc-provider'
 import { LoginInput, RegisterInput } from '@/types/auth'
 import { tokenManager } from '@/utils/tokenManager'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { AlertCircleIcon, Loader2Icon } from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
 
 interface AuthFormProps {
   type: 'login' | 'register'

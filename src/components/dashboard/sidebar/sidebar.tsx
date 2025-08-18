@@ -1,5 +1,8 @@
 'use client'
 
+import { Store } from 'lucide-react'
+import Link from 'next/link'
+
 import {
   Sidebar,
   SidebarContent,
@@ -13,8 +16,7 @@ import {
 } from '@/components/ui/sidebar'
 import { routeConfig } from '@/config/route'
 import { useUser } from '@/providers/auth-provider'
-import { Store } from 'lucide-react'
-import Link from 'next/link'
+
 import { UserBlock } from '../user-block/user-block'
 import { SIDEBAR_ITEMS } from './sidebar.constants'
 

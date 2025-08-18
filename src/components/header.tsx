@@ -1,6 +1,8 @@
-import { routeConfig } from '@/config/route'
 import { Home, LayoutDashboard, LogIn, User } from 'lucide-react'
 import Link from 'next/link'
+
+import { routeConfig } from '@/config/route'
+
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 

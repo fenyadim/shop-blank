@@ -1,5 +1,7 @@
-import { routeConfig } from '@/config/route'
 import { Settings, ShoppingBag, Users } from 'lucide-react'
+
+import { routeConfig } from '@/config/route'
+
 import { TSidebarItem } from './sidebar.types'
 
 export const SIDEBAR_ITEMS: TSidebarItem[] = [

@@ -1,7 +1,8 @@
-import { publicProcedure } from '@/server/trpc'
-import { signAccessToken, verifyJwt } from '@/server/utils/jwt'
 import { TRPCError } from '@trpc/server'
 import { parse } from 'cookie'
+
+import { publicProcedure } from '@/server/trpc'
+import { signAccessToken, verifyJwt } from '@/server/utils/jwt'
 
 export const refreshProcedure = publicProcedure.query(async ({ ctx }) => {
   const cookieHeader = ctx.req.headers.get('cookie')

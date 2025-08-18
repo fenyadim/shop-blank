@@ -1,6 +1,7 @@
 'use client'
 
 import { EllipsisVertical, LogOut, UserPen } from 'lucide-react'
+import Link from 'next/link'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -22,7 +23,6 @@ import { routeConfig } from '@/config/route'
 import { trpc } from '@/providers/trpc-provider'
 import { User } from '@/types/user'
 import { tokenManager } from '@/utils/tokenManager'
-import Link from 'next/link'
 
 export const UserBlock = ({ user }: { user: NonNullable<User> }) => {
   const { isMobile } = useSidebar()

@@ -1,4 +1,5 @@
 import { router } from '@/server/trpc'
+
 import { loginProcedure } from './login'
 import { logoutProcedure } from './logout'
 import { refreshProcedure } from './refresh'

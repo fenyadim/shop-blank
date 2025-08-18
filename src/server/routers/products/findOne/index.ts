@@ -1,4 +1,5 @@
 import { publicProcedure } from '@/server/trpc'
+
 import { findOneSchema } from './input'
 
 export const findOneProcedure = publicProcedure.input(findOneSchema).query(
