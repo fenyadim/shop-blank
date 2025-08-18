@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 
 import { DashboardSidebar } from '@/components/dashboard'
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import { SidebarProvider } from '@/components/ui/sidebar'
 import { AuthProvider } from '@/providers/auth-provider'
 
 export default function DashboardLayout({ children }: PropsWithChildren) {
@@ -9,10 +9,7 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
     <AuthProvider>
       <SidebarProvider>
         <DashboardSidebar />
-        <main className="p-2 flex-1">
-          <SidebarTrigger />
-          {children}
-        </main>
+        <main className="p-2 flex-1">{children}</main>
       </SidebarProvider>
     </AuthProvider>
   )

@@ -1,3 +1,10 @@
+import { DashboardHeader } from '@/components/dashboard'
+
 export const ProductsPage = () => {
-  return <div>Products</div>
+  return (
+    <>
+      <DashboardHeader title="Products" />
+      <div>Products</div>
+    </>
+  )
 }

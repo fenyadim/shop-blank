@@ -1,5 +1,12 @@
 'use client'
 
+import { DashboardHeader } from '@/components/dashboard'
+
 export const DashboardPage = () => {
-  return <div>Dashboard</div>
+  return (
+    <>
+      <DashboardHeader title="Dashboard" />
+      <div>Dashboard</div>
+    </>
+  )
 }

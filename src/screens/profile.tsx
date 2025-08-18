@@ -1,3 +1,10 @@
+import { DashboardHeader } from '@/components/dashboard'
+
 export const ProfilePage = () => {
-  return <div>Profile</div>
+  return (
+    <>
+      <DashboardHeader title="Profile" />
+      <div>Profile</div>
+    </>
+  )
 }

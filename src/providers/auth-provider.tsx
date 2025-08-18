@@ -37,8 +37,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   if (isLoading || !user) return <p>Loading...</p>
 
-  console.log(user)
-
   return (
     <UserContext.Provider value={{ user, isLoading }}>
       {children}
