@@ -2,6 +2,7 @@ const PUBLIC_ROUTES = ['home'] as const
 const ADMIN_ROUTES = [
   'dashboard',
   'products',
+  'newProduct',
   'settings',
   'profile',
   'users',
@@ -21,6 +22,7 @@ export const routeConfig = {
   home: () => '/',
   dashboard: () => '/dashboard',
   products: () => '/dashboard/products',
+  newProduct: () => '/dashboard/products/new',
   settings: () => '/dashboard/settings',
   profile: () => '/dashboard/profile',
   users: () => '/dashboard/users',

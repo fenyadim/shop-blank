@@ -1,10 +1,12 @@
-import { DashboardHeader } from '@/components/dashboard'
+import { DashboardHeader, ProductsTable } from '@/components/dashboard'
 
 export const ProductsPage = () => {
   return (
     <>
-      <DashboardHeader title="Products" />
-      <div>Products</div>
+      <DashboardHeader title="Товары" />
+      <div className="px-3">
+        <ProductsTable />
+      </div>
     </>
   )
 }

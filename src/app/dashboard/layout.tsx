@@ -9,7 +9,9 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
     <AuthProvider>
       <SidebarProvider>
         <DashboardSidebar />
-        <main className="p-2 flex-1">{children}</main>
+        <main className="p-1.5 flex-1 grid grid-rows-[auto_1fr] gap-3">
+          {children}
+        </main>
       </SidebarProvider>
     </AuthProvider>
   )

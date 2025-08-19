@@ -1,3 +1,4 @@
+import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 
 interface DashboardHeaderProps {
@@ -6,9 +7,10 @@ interface DashboardHeaderProps {
 
 export const DashboardHeader = ({ title }: DashboardHeaderProps) => {
   return (
-    <header className="flex gap-3 items-center">
+    <header className="flex gap-1.5 h-full items-center border-b-1 pb-1.5">
       <SidebarTrigger />
-      <h1>{title}</h1>
+      <Separator orientation="vertical" />
+      <h1 className="ml-2">{title}</h1>
     </header>
   )
 }
