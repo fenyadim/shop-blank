@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { useCallback } from 'react'
 
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {
   Table,
   TableBody,
@@ -73,13 +74,15 @@ export const ProductsTable = () => {
   })
 
   return (
-    <div className="flex flex-col gap-3">
-      <Button className="self-end" asChild>
-        <Link href={routeConfig.newProduct()}>
-          Добавить <Plus />
-        </Link>
-      </Button>
-      <div className="overflow-hidden rounded-md border">
+    <Card className="overflow-hidden w-2/3">
+      <CardHeader>
+        <Button className="w-min" asChild>
+          <Link href={routeConfig.newProduct()}>
+            Добавить <Plus />
+          </Link>
+        </Button>
+      </CardHeader>
+      <CardContent className="overflow-hidden p-0 border border-x-0">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -128,7 +131,7 @@ export const ProductsTable = () => {
             )}
           </TableBody>
         </Table>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

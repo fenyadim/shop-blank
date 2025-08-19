@@ -7,7 +7,7 @@ interface DashboardHeaderProps {
 
 export const DashboardHeader = ({ title }: DashboardHeaderProps) => {
   return (
-    <header className="flex gap-1.5 h-full items-center border-b-1 pb-1.5">
+    <header className="flex gap-2 h-full items-center border-b-1 pb-2">
       <SidebarTrigger />
       <Separator orientation="vertical" />
       <h1 className="ml-2">{title}</h1>
