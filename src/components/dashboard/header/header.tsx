@@ -1,16 +1,19 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
+
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
+import { TDashboardRoute, dashboardTitles } from '@/config/route'
 
-interface DashboardHeaderProps {
-  title: string
-}
+export const DashboardHeader = () => {
+  const pathname = usePathname() as TDashboardRoute
 
-export const DashboardHeader = ({ title }: DashboardHeaderProps) => {
   return (
     <header className="flex gap-2 h-full items-center border-b-1 pb-2">
       <SidebarTrigger />
       <Separator orientation="vertical" />
-      <h1 className="ml-2">{title}</h1>
+      <h1 className="ml-2">{dashboardTitles[pathname]}</h1>
     </header>
   )
 }

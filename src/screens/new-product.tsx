@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { DashboardHeader } from '@/components/dashboard'
 import { Alert, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -32,7 +31,7 @@ export const ProductsNewPage = () => {
       title: '',
       description: '',
       image: '',
-      price: 0.0,
+      price: '',
     },
   })
 
@@ -61,98 +60,93 @@ export const ProductsNewPage = () => {
   const isLoading = createMutation.isPending
 
   return (
-    <>
-      <DashboardHeader title="Новый товар" />
-      <div className="px-3">
-        <Button className="mb-3" onClick={handleBackClick}>
-          <ArrowLeft /> Назад
-        </Button>
-        <Card>
-          <CardContent>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(handleSubmit)}
-                className="flex flex-col gap-6"
-              >
-                <FormField
-                  control={form.control}
-                  name="title"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Название продукта</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Описание</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="image"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Изображение</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="price"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Цена</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="number" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                {form.formState.errors.root && (
-                  <Alert variant="destructive">
-                    <AlertCircleIcon />
-                    <AlertTitle>
-                      {form.formState.errors.root.message}.
-                    </AlertTitle>
-                  </Alert>
+    <div className="px-3">
+      <Button className="mb-3" onClick={handleBackClick}>
+        <ArrowLeft /> Назад
+      </Button>
+      <Card>
+        <CardContent>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="flex flex-col gap-6"
+            >
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Название продукта</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
+              />
 
-                <div>
-                  <Button className="w-full" disabled={isLoading}>
-                    {!isLoading ? (
-                      'Создать'
-                    ) : (
-                      <Loader2Icon className="animate-spin" />
-                    )}
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Описание</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Изображение</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Цена</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="number" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {form.formState.errors.root && (
+                <Alert variant="destructive">
+                  <AlertCircleIcon />
+                  <AlertTitle>{form.formState.errors.root.message}.</AlertTitle>
+                </Alert>
+              )}
+
+              <div>
+                <Button className="w-full" disabled={isLoading}>
+                  {!isLoading ? (
+                    'Создать'
+                  ) : (
+                    <Loader2Icon className="animate-spin" />
+                  )}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

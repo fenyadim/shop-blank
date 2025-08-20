@@ -74,8 +74,8 @@ export const ProductsTable = () => {
   })
 
   return (
-    <Card className="overflow-hidden w-2/3">
-      <CardHeader>
+    <Card className="max-w-3/4 overflow-hidden pt-3 pb-0 gap-2">
+      <CardHeader className="p-0 px-3">
         <Button className="w-min" asChild>
           <Link href={routeConfig.newProduct()}>
             Добавить <Plus />
