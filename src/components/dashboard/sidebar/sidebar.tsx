@@ -13,6 +13,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
 import { routeConfig } from '@/config/route'
 import { useUser } from '@/providers/auth-provider'
@@ -49,14 +52,41 @@ export const DashboardSidebar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {SIDEBAR_ITEMS.map(({ title, url, Icon }) => (
+              {SIDEBAR_ITEMS.map(({ title, url, Icon, subItems }) => (
                 <SidebarMenuItem key={title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={url}>
-                      <Icon />
-                      <span>{title}</span>
-                    </Link>
-                  </SidebarMenuButton>
+                  {!subItems ? (
+                    <SidebarMenuButton asChild>
+                      <Link href={url ?? ''}>
+                        {Icon && <Icon />}
+                        <span>{title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  ) : (
+                    <>
+                      <SidebarMenuButton>
+                        {Icon && <Icon />}
+                        <span>{title}</span>
+                      </SidebarMenuButton>
+                      {subItems.map(
+                        ({
+                          title: subItemTitle,
+                          url: subItemUrl,
+                          Icon: SubItemIcon,
+                        }) => (
+                          <SidebarMenuSub key={subItemTitle}>
+                            <SidebarMenuSubItem>
+                              <SidebarMenuSubButton asChild>
+                                <Link href={subItemUrl ?? ''}>
+                                  {SubItemIcon && <SubItemIcon />}
+                                  <span>{subItemTitle}</span>
+                                </Link>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          </SidebarMenuSub>
+                        ),
+                      )}
+                    </>
+                  )}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>

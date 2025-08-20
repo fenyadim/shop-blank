@@ -6,7 +6,7 @@ import { SidebarProvider } from '@/components/ui/sidebar'
 import { AuthProvider } from '@/providers/auth-provider'
 
 export const metadata: Metadata = {
-  title: 'Shop blank | Dashboard',
+  title: 'Dashboard | Shop blank',
 }
 
 export default function DashboardLayout({ children }: PropsWithChildren) {

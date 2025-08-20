@@ -6,6 +6,8 @@ const DASHBOARD_ROUTES = [
   'settings',
   'profile',
   'users',
+  'categorires',
+  'parameters',
 ] as const
 const AUTH_ROUTES = ['login', 'register'] as const
 
@@ -26,6 +28,8 @@ export const DASHBOARD_ROUTES_NAME = {
   dashboard: '/dashboard',
   products: '/dashboard/products',
   newProduct: '/dashboard/products/new',
+  categorires: '/dashboard/products/categorires',
+  parameters: '/dashboard/products/parameters',
   settings: '/dashboard/settings',
   profile: '/dashboard/profile',
   users: '/dashboard/users',
@@ -35,12 +39,14 @@ const dashboardRouteValues = Object.values(DASHBOARD_ROUTES_NAME)
 
 export const routeConfig = {
   home: () => '/',
-  dashboard: () => '/dashboard',
-  products: () => '/dashboard/products',
-  newProduct: () => '/dashboard/products/new',
-  settings: () => '/dashboard/settings',
-  profile: () => '/dashboard/profile',
-  users: () => '/dashboard/users',
+  dashboard: () => DASHBOARD_ROUTES_NAME.dashboard,
+  products: () => DASHBOARD_ROUTES_NAME.products,
+  categorires: () => DASHBOARD_ROUTES_NAME.categorires,
+  parameters: () => DASHBOARD_ROUTES_NAME.parameters,
+  newProduct: () => DASHBOARD_ROUTES_NAME.newProduct,
+  settings: () => DASHBOARD_ROUTES_NAME.settings,
+  profile: () => DASHBOARD_ROUTES_NAME.profile,
+  users: () => DASHBOARD_ROUTES_NAME.users,
   login: (redirectTo?: string) =>
     redirectTo ? `/login?redirect=${redirectTo}` : '/login',
   register: (redirectTo?: string) =>
@@ -60,6 +66,8 @@ export const dashboardTitles: DashboardTitles = {
   [DASHBOARD_ROUTES_NAME.settings]: 'Настройки',
   [DASHBOARD_ROUTES_NAME.profile]: 'Профиль',
   [DASHBOARD_ROUTES_NAME.users]: 'Пользователи',
+  [DASHBOARD_ROUTES_NAME.categorires]: 'Категории',
+  [DASHBOARD_ROUTES_NAME.parameters]: 'Параметры товаров',
 }
 
 type RouteParams = {
